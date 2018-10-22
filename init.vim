@@ -1,5 +1,9 @@
 syntax on
 
+" Neovim settings
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 set autoread                          " Auto reload changed files
 set wildmenu                          " Tab autocomplete in command mode
 set backspace=indent,eol,start        " http://vi.stackexchange.com/a/2163
@@ -49,14 +53,18 @@ set wildignore+=*.zip
 set wildignore+=*/vendor/bundle/*
 set wildignore+=*/node_modules/
 
+
+" for autosuggestions
+" filetype plugin on
+" set omnifunc=syntaxcomplete#Complete
+" set omnifunc with deoplete for better performance
+
+
 " Theme
 " colorscheme solarized
 " colorscheme desert
 " colorscheme gruvbox
 
-" for autosuggestions
-" filetype plugin on
-" set omnifunc=syntaxcomplete#Complete
 
 " Showcase comments in italics
 highlight Comment cterm=italic gui=italic
@@ -92,6 +100,10 @@ Plug 'scrooloose/nerdcommenter'
 
 " File icons
 Plug 'ryanoasis/vim-devicons'
+
+" File system navigation
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " status and powerline
 Plug 'vim-airline/vim-airline'
