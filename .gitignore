@@ -1,0 +1,6 @@
+# ignore
+/*
+
+# Allow
+!init.vim
+!.gitignore
