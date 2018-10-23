@@ -1,9 +1,5 @@
 syntax on
 
-" Neovim settings
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 set autoread                          " Auto reload changed files
 set wildmenu                          " Tab autocomplete in command mode
 set backspace=indent,eol,start        " http://vi.stackexchange.com/a/2163
@@ -104,8 +100,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'ryanoasis/vim-devicons'
 
 " File system navigation
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " status and powerline
 Plug 'vim-airline/vim-airline'
@@ -120,9 +117,6 @@ Plug 'vim-syntastic/syntastic'
 Plug 'altercation/vim-colors-solarized'
 Plug 'icymind/NeoSolarized'
 Plug 'morhetz/gruvbox'
-
-" File System Navigation
-Plug 'junegunn/fzf.vim'
 
 
 "Plugin Settings
