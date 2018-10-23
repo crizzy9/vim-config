@@ -82,6 +82,8 @@ call plug#begin('~/.config/nvim/plugged')
 " Git
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " General
 Plug 'junegunn/vim-easy-align'
