@@ -174,8 +174,7 @@ nnoremap <leader>se :call FixLastSpellingError()<cr>
 inoremap <leader>nn <C-O>o     " Go to new line in insert mode
 
 " Normal mode mappings
-nnoremap <S-Enter> O<Esc>      " Insert new line up in normal mode
-nnoremap <CR> o<Esc>           " Insert new line down in normal mode
+nnoremap <CR> o<Esc>           " Insert new line in normal mode
 nnoremap <space>j :m+1<cr>     " Move line down
 nnoremap <space>k :m-2<cr>     " Move line up
 
