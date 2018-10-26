@@ -88,13 +88,17 @@ Plug 'Yggdroot/indentLine'
 " Autocomplete Suggestions
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
+Plug 'ervandew/supertab'
 
 " Fast Controls
 Plug 'tpope/vim-surround'
 
 " Nerd Plugins
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'  " For sexy commenting
+
+" Comments
+Plug 'tpope/vim-commentary'      " For easy commenting
 
 " File icons
 Plug 'ryanoasis/vim-devicons'
@@ -129,6 +133,9 @@ let g:gruvbox_contrast_dark = 1
 
 " deoplete settings
 let g:deoplete#enable_at_startup = 1
+
+" supertab settings
+let g:SuperTabDefaultCompletionType = "<c-n>"     " defaults super tab to ctrl-n
 
 call plug#end()
 
