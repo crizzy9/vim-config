@@ -49,6 +49,8 @@ set wildignore+=*.zip
 set wildignore+=*/vendor/bundle/*
 set wildignore+=*/node_modules/
 
+" Spell checking
+set spell spelllang=en_us
 
 " for autosuggestions
 " filetype plugin on
@@ -65,11 +67,6 @@ set wildignore+=*/node_modules/
 " Showcase comments in italics
 highlight Comment cterm=italic gui=italic
 
-" Mappings
-imap \nn <C-O>o
-
-nmap <S-Enter> O<Esc>
-nmap <CR> o<Esc>
 
 " Plugins
 " call plug#begin('~/.vim/plugged')
@@ -139,9 +136,9 @@ let g:SuperTabDefaultCompletionType = "<c-n>"     " defaults super tab to ctrl-n
 
 call plug#end()
 
-"-------------------------------------------------------------------------------
-" Neovim-specific configurations
-"-------------------------------------------------------------------------------
+"----------------------------------
+"  Neovim-specific configurations |
+"----------------------------------
 
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -155,3 +152,30 @@ if has('nvim')
   " Fix vim-tmux-navigator <C-h> https://git.io/vS5QH
   nmap <BS> :<C-u>TmuxNavigateLeft<CR>
 endif
+
+
+" -------------------
+"  Custom functions | 
+" -------------------
+
+" From your first vim plugin talk
+function! FixLastSpellingError()
+    normal! mm[s1z=`m
+endfunction
+
+nnoremap <leader>se :call FixLastSpellingError()<cr>
+
+
+" -------------------
+"  Custom mappings  |
+" -------------------
+
+" Insert mode mappings
+inoremap <leader>nn <C-O>o     " Go to new line in insert mode
+
+" Normal mode mappings
+nnoremap <S-Enter> O<Esc>      " Insert new line up in normal mode
+nnoremap <CR> o<Esc>           " Insert new line down in normal mode
+nnoremap <space>j :m+1<cr>     " Move line down
+nnoremap <space>k :m-2<cr>     " Move line up
+
