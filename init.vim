@@ -119,11 +119,16 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'icymind/NeoSolarized'
 Plug 'morhetz/gruvbox'
 
+" Colorizer
+Plug 'chrisbra/Colorizer'
+
+" Smooth Scrolling
+Plug 'yuttie/comfortable-motion.vim'
 
 "Plugin Settings
 
 " indentLine settings
-let g:indentLine_setColors = 0
+let g:indentLine_setColors = 1
 let g:indentLine_char = '|'
 let g:indentLine_enabled = 1
 let g:gruvbox_contrast_dark = 1
@@ -143,8 +148,9 @@ call plug#end()
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
-  colorscheme NeoSolarized
-  set background=dark
+  colorscheme xoria-mod256
+  " colorscheme NeoSolarized
+  " set background=dark
 
   " Fix vim-tmux-navigator <C-h> https://git.io/viGRU
   nmap <BS> <C-W>h
@@ -178,4 +184,11 @@ inoremap <leader>nn <C-O>o
 nnoremap <CR> o<Esc>           " Insert new line in normal mode
 nnoremap <space>j :m+1<cr>     " Move line down
 nnoremap <space>k :m-2<cr>     " Move line up
+
+" Nerd Tree Mappings
+nnoremap <C-n><C-t> :NERDTreeToggle<CR>
+nnoremap <C-n><C-m> :NERDTreeMirror<CR>
+" Terminal mapping
+" nnoremap <leader>t :split|terminal<CR>
+" nnoremap <leader>vt :vsplit|terminal<CR>
 
