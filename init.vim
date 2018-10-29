@@ -192,3 +192,8 @@ nnoremap <C-n><C-m> :NERDTreeMirror<CR>
 " nnoremap <leader>t :split|terminal<CR>
 " nnoremap <leader>vt :vsplit|terminal<CR>
 
+" Custom mapping for replacing word without storing in register
+" In future map it with a motion command instead of word to delete a certain
+" thing and paste something you copied elsewhere in place. unless you find a
+" better way to do this
+nnoremap <leader>rp "_dwp 
