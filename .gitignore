@@ -1,6 +1,4 @@
 # ignore
-/*
-
-# Allow
-!init.vim
-!.gitignore
+/plugged/
+/shada/
+.netrwhist
