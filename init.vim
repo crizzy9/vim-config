@@ -123,7 +123,7 @@ Plug 'morhetz/gruvbox'
 Plug 'chrisbra/Colorizer'
 
 " Smooth Scrolling
-Plug 'yuttie/comfortable-motion.vim'
+" Plug 'yuttie/comfortable-motion.vim'
 
 "Plugin Settings
 
