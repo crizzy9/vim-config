@@ -148,9 +148,9 @@ call plug#end()
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
-  colorscheme xoria-mod256
-  " colorscheme NeoSolarized
-  " set background=dark
+  " colorscheme xoria-mod256
+  colorscheme NeoSolarized
+  set background=dark
 
   " Fix vim-tmux-navigator <C-h> https://git.io/viGRU
   nmap <BS> <C-W>h
@@ -181,7 +181,17 @@ nnoremap <leader>se :call FixLastSpellingError()<cr>
 inoremap <leader>nn <C-O>o
 
 " Normal mode mappings
-nnoremap <CR> o<Esc>           " Insert new line in normal mode
+" New line mappings
+" The mark should stay at the same place but instead its shifting a bit
+nnoremap <CR> :normal! mmo<Esc>`m           " Insert new line in normal mode
+
+" Add mappings for moving all the content on the right of the curser goes down
+" while staying in insert mode
+" nnoremap <S-CR> O<Esc>
+" The mark should stay at the same place.
+nnoremap <space><CR> a<CR><Esc>
+
+" Line movement mapings
 nnoremap <space>j :m+1<cr>     " Move line down
 nnoremap <space>k :m-2<cr>     " Move line up
 
@@ -196,4 +206,4 @@ nnoremap <C-n><C-m> :NERDTreeMirror<CR>
 " In future map it with a motion command instead of word to delete a certain
 " thing and paste something you copied elsewhere in place. unless you find a
 " better way to do this
-nnoremap <leader>rp "_dwp 
+nnoremap <leader>rp "_diwp 
