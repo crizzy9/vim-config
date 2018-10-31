@@ -122,6 +122,8 @@ Plug 'morhetz/gruvbox'
 " Colorizer
 Plug 'chrisbra/Colorizer'
 
+" Colorschemes
+Plug 'rakr/vim-one'
 " Smooth Scrolling
 " Plug 'yuttie/comfortable-motion.vim'
 
@@ -139,6 +141,9 @@ let g:deoplete#enable_at_startup = 1
 " supertab settings
 let g:SuperTabDefaultCompletionType = "<c-n>"     " defaults super tab to ctrl-n
 
+" airline settings
+let g:airline_theme='one'
+
 call plug#end()
 
 "----------------------------------
@@ -146,17 +151,27 @@ call plug#end()
 "----------------------------------
 
 if has('nvim')
+
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  set termguicolors
+
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+  
   " colorscheme xoria-mod256
-  colorscheme NeoSolarized
+  " colorscheme NeoSolarized
+
+  " Vim One settings
+  colorscheme one
   set background=dark
+  let g:one_allow_italics=1
 
   " Fix vim-tmux-navigator <C-h> https://git.io/viGRU
   nmap <BS> <C-W>h
 
   " Fix vim-tmux-navigator <C-h> https://git.io/vS5QH
   nmap <BS> :<C-u>TmuxNavigateLeft<CR>
+
 endif
 
 
