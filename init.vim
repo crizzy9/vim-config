@@ -157,7 +157,7 @@ if has('nvim')
   if (has("termguicolors"))
     set termguicolors
   endif
-  
+
   " colorscheme xoria-mod256
   " colorscheme NeoSolarized
 
@@ -176,7 +176,7 @@ endif
 
 
 " -------------------
-"  Custom functions | 
+"  Custom functions |
 " -------------------
 
 " From your first vim plugin talk
@@ -186,6 +186,21 @@ endfunction
 
 nnoremap <leader>se :call FixLastSpellingError()<cr>
 
+" Zooming into panes like tmux and iterm2
+" Zoom / Restore window.
+function! s:ZoomToggle() abort
+  if exists('t:zoomed') && t:zoomed
+    execute t:zoom_winrestcmd
+    let t:zoomed = 0
+  else
+    let t:zoom_winrestcmd = winrestcmd()
+    resize
+    vertical resize
+    let t:zoomed = 1
+  endif
+endfunction
+command! ZoomToggle call s:ZoomToggle()
+nnoremap <silent> <C-A> :ZoomToggle<CR>
 
 " -------------------
 "  Custom mappings  |
@@ -221,4 +236,4 @@ nnoremap <C-n><C-m> :NERDTreeMirror<CR>
 " In future map it with a motion command instead of word to delete a certain
 " thing and paste something you copied elsewhere in place. unless you find a
 " better way to do this
-nnoremap <leader>rp "_diwp 
+nnoremap <leader>rp "_diwp
