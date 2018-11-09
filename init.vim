@@ -199,6 +199,7 @@ function! s:ZoomToggle() abort
     let t:zoomed = 1
   endif
 endfunction
+
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
 
@@ -213,7 +214,7 @@ inoremap <leader>nn <C-O>o
 " Normal mode mappings
 " New line mappings
 " The mark should stay at the same place but instead its shifting a bit
-nnoremap <CR> :normal! mmo<Esc>`m           " Insert new line in normal mode
+" nnoremap <CR> :normal! mmo<Esc>`m           " Insert new line in normal mode
 
 " Add mappings for moving all the content on the right of the curser goes down
 " while staying in insert mode
@@ -237,3 +238,10 @@ nnoremap <C-n><C-m> :NERDTreeMirror<CR>
 " thing and paste something you copied elsewhere in place. unless you find a
 " better way to do this
 nnoremap <leader>rp "_diwp
+
+" Easy Save and Quit in normal mode
+nnoremap ;w :w<CR>
+nnoremap ;q :q<CR>
+
+" Easily get out of terminal mode
+tnoremap <Esc> <C-\><C-n>
