@@ -104,6 +104,7 @@ Plug 'ryanoasis/vim-devicons'
 "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Shougo/denite.nvim'
 
 " status and powerline
 Plug 'vim-airline/vim-airline'
@@ -113,6 +114,11 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " Syntax linter
 Plug 'vim-syntastic/syntastic'
+
+" Typescript plugins
+Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}    " Needs npm install -g neovim and a :UpdateRemotePlugins
 
 " Themes
 Plug 'altercation/vim-colors-solarized'
@@ -143,6 +149,19 @@ let g:SuperTabDefaultCompletionType = "<c-n>"     " defaults super tab to ctrl-n
 
 " airline settings
 let g:airline_theme='one'
+
+" Typescript plugin settings
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+autocmd FileType typescript :set makeprg=tsc
+
+" after a re-source, fix syntax matching issues (concealing brackets for NerdTree):
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
 
 call plug#end()
 
@@ -245,3 +264,6 @@ nnoremap ;q :q<CR>
 
 " Easily get out of terminal mode
 tnoremap <Esc> <C-\><C-n>
+
+" Shortcut to source init.vim
+nnoremap \so :source ~/.config/nvim/init.vim<CR>
