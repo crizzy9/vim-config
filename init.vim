@@ -266,4 +266,4 @@ nnoremap ;q :q<CR>
 tnoremap <Esc> <C-\><C-n>
 
 " Shortcut to source init.vim
-nnoremap \so :source ~/.config/nvim/init.vim<CR>
+nnoremap <leader>so :source ~/.config/nvim/init.vim<CR>
