@@ -261,6 +261,11 @@ nnoremap <leader>rp "_diwp
 " Easy Save and Quit in normal mode
 nnoremap ;w :w<CR>
 nnoremap ;q :q<CR>
+nnoremap ;1 :q!<CR>
+nnoremap ;wq :wq<CR>
+nnoremap ;qa :qa<CR>
+nnoremap ;wa :wa<CR>
+nnoremap ;wqa :wqa<CR>
 
 " Easily get out of terminal mode
 tnoremap <Esc> <C-\><C-n>
