@@ -272,3 +272,12 @@ tnoremap <Esc> <C-\><C-n>
 
 " Shortcut to source init.vim
 nnoremap <leader>so :source ~/.config/nvim/init.vim<CR>
+
+" Go to last active tab
+if !exists('g:lasttab')
+  let g:lasttab = 1
+endif
+
+nnoremap <silent> gl :exe "tabn ".g:lasttab<cr>
+vnoremap <silent> gl :exe "tabn ".g:lasttab<cr>
+au TabLeave * let g:lasttab = tabpagenr()
