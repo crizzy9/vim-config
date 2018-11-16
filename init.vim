@@ -48,6 +48,7 @@ set wildignore+=*.so
 set wildignore+=*.zip
 set wildignore+=*/vendor/bundle/*
 set wildignore+=*/node_modules/
+set wildignore+=*/__pycache__/*
 
 " Spell checking
 set spell spelllang=en_us
@@ -281,3 +282,9 @@ endif
 nnoremap <silent> gl :exe "tabn ".g:lasttab<cr>
 vnoremap <silent> gl :exe "tabn ".g:lasttab<cr>
 au TabLeave * let g:lasttab = tabpagenr()
+
+" Group all leader mappings together
+nnoremap <leader>nt :tabnew<CR>                 " Open a new tab
+nnoremap <leader>t :tabnew<CR>:term<CR>         " Open a new tab with terminal
+nnoremap <leader>st :split<CR>:term<CR>         " Open a horizontal split with terminal
+nnoremap <leader>vt :vsplit<CR>:term<CR>        " Open a vertical split with terminal
