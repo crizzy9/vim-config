@@ -243,8 +243,8 @@ inoremap <leader>nn <C-O>o
 nnoremap <space><CR> a<CR><Esc>
 
 " Line movement mapings
-nnoremap <space>j :m+1<cr>     " Move line down
-nnoremap <space>k :m-2<cr>     " Move line up
+nnoremap <space>j :m+1<CR>     " Move line down
+nnoremap <space>k :m-2<CR>     " Move line up
 
 " Nerd Tree Mappings
 nnoremap <C-n><C-t> :NERDTreeToggle<CR>
@@ -288,3 +288,24 @@ nnoremap <leader>nt :tabnew<CR>                 " Open a new tab
 nnoremap <leader>t :tabnew<CR>:term<CR>         " Open a new tab with terminal
 nnoremap <leader>st :split<CR>:term<CR>         " Open a horizontal split with terminal
 nnoremap <leader>vt :vsplit<CR>:term<CR>        " Open a vertical split with terminal
+
+" Move elements in an array or remove or add them simply with a few key strokes
+" Allow numbers to move multiple
+" <?num?> + <Space> + h : Move element left
+" <?num?> + <Space> + l : Move element right
+" *<?num?> + <Space> + h : Remove left most element
+" *<?num?> + <Space> + h : Remove right most element
+" *<?num?> + <Space> + h : Add left most element
+" *<?num?> + <Space> + h : Add right most element
+" This is very buggy improve and use text objects
+" Cannot move the first word right and last word left like this. Also cant
+" move second word into the first one and vice versa
+" When on second word and trying to move it left it gets deleted?
+" ['word1', 'word2', 'word3', 'word 4', word5, 'word6', 'word7']
+nnoremap <space>l T,df,f,p
+nnoremap <space>h T,df,F,;p
+
+" How to escape [ or catch it. This doesnt seem to work!
+nnoremap <space>b /,\|\[<CR>
+" nnoremap <space>w /\%Vword<CR>
+" nnoremap <space>b /\%V,\|\[<CR>
