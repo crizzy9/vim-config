@@ -305,7 +305,18 @@ nnoremap <leader>vt :vsplit<CR>:term<CR>        " Open a vertical split with ter
 nnoremap <space>l T,df,f,p
 nnoremap <space>h T,df,F,;p
 
+" Adding two seperate mappings for [ for first and last change
+nnoremap <space>gl F,dt,t)p " similar for ]
+nnoremap <space>gh T,df,F[,p " need to fix this
+
+
 " How to escape [ or catch it. This doesnt seem to work!
 nnoremap <space>b /,\|\[<CR>
 " nnoremap <space>w /\%Vword<CR>
 " nnoremap <space>b /\%V,\|\[<CR>
+
+" allow this only for markdown files and make this into a snippet
+" To add a ----- or ===== line underneath a heading in markdown.
+nnoremap <space>- yypVr-<Esc>
+nnoremap <space>= yypVr=<Esc>
+
