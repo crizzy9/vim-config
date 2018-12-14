@@ -1,6 +1,9 @@
 syntax on
 
 set autoread                          " Auto reload changed files
+au CursorHold,CursorHoldI * checktime " To update files without explicitly giving :e since autoread doesnt do that for you
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim
+
 set wildmenu                          " Tab autocomplete in command mode
 set backspace=indent,eol,start        " http://vi.stackexchange.com/a/2163
 set clipboard=unnamed                 " Clipboard support (OSX)
@@ -52,6 +55,9 @@ set wildignore+=*/__pycache__/*
 
 " Spell checking
 set spell spelllang=en_us
+
+" Opening an already open buffer while opening a tag
+set swb+=useopen,usetab " doesnt work
 
 " for autosuggestions
 " filetype plugin on
@@ -302,8 +308,13 @@ nnoremap <leader>vt :vsplit<CR>:term<CR>        " Open a vertical split with ter
 " move second word into the first one and vice versa
 " When on second word and trying to move it left it gets deleted?
 " ['word1', 'word2', 'word3', 'word 4', word5, 'word6', 'word7']
+" di - delete item, df - delete first, dl - delete last
 nnoremap <space>l T,df,f,p
 nnoremap <space>h T,df,F,;p
+
+" Maybe give an option as which closing or ending brackets we need to use? Like change surrounding.
+nnoremap <space>dl t)F,dt)
+nnoremap <space>df T(df,x
 
 " Adding two seperate mappings for [ for first and last change
 nnoremap <space>gl F,dt,t)p " similar for ]
