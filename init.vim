@@ -1,5 +1,4 @@
-syntax on
-
+syntax on 
 set autoread                          " Auto reload changed files
 au CursorHold,CursorHoldI * checktime " To update files without explicitly giving :e since autoread doesnt do that for you
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim
@@ -56,6 +55,9 @@ set wildignore+=*/__pycache__/*
 " Spell checking
 set spell spelllang=en_us
 
+" Fold options
+set foldmethod=indent
+
 " Opening an already open buffer while opening a tag
 set swb+=useopen,usetab " doesnt work
 
@@ -94,6 +96,21 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'ervandew/supertab'
 
+" Use YouCompleteMe with UltiSnips
+
+" Ultisnips
+" Plug 'SirVer/ultisnips'
+
+" Snippets seperate from the engine
+" Plug 'honza/vim-snippets'
+
+" NeoSnippets
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
+" Vim Jupyter
+Plug 'szymonmaszke/vimpyter'  " External dependency notedown (install using pip)
+
 " Fast Controls
 Plug 'tpope/vim-surround'
 
@@ -106,6 +123,12 @@ Plug 'tpope/vim-commentary'      " For easy commenting
 
 " File icons
 Plug 'ryanoasis/vim-devicons'
+
+" Vim Latex PDF Live Preview
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+
+" Vim latex
+Plug 'lervag/vimtex'
 
 " File system navigation
 "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -148,8 +171,46 @@ let g:indentLine_char = '|'
 let g:indentLine_enabled = 1
 let g:gruvbox_contrast_dark = 1
 
+" ultisnips settings
+" Trigger configuration
+" let g:UltiSnipsExpandTrigger="<c-s>"
+" let g:UltiSnipsJumpForwardTrigger="<c-s>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-m>"
+" If you want :UltiSnipsEdit to split your window.
+" let g:UltiSnipsEditSplit="vertical"
+
+" Vim latex pdf viewer
+let g:livepreview_previewer = 'zathura'
+
 " deoplete settings
 let g:deoplete#enable_at_startup = 1
+
+" ========= Vim Surround Configuration ========= 
+
+au FileType tex let g:surround_108 = "\\begin{\1environment: \1}\r\\end{\1\1}"
+au FileType tex let g:surround_{char2nr('e')} = "\\\1effect: \1{\r}"  " surround text by \emph or \textbf where emph is the effect
+
+" ========= NeoSnippet Configuration ========= 
+
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " supertab settings
 let g:SuperTabDefaultCompletionType = "<c-n>"     " defaults super tab to ctrl-n
@@ -160,6 +221,9 @@ let g:airline_theme='one'
 " Typescript plugin settings
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = ''
+
+" To not show symbols like mu in latex files
+let g:tex_conceal = ""
 
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
@@ -259,6 +323,9 @@ nnoremap <C-n><C-m> :NERDTreeMirror<CR>
 " nnoremap <leader>t :split|terminal<CR>
 " nnoremap <leader>vt :vsplit|terminal<CR>
 
+" Show hidden files in Nerd Tree by default
+let NERDTreeShowHidden=1
+
 " Custom mapping for replacing word without storing in register
 " In future map it with a motion command instead of word to delete a certain
 " thing and paste something you copied elsewhere in place. unless you find a
@@ -330,4 +397,72 @@ nnoremap <space>b /,\|\[<CR>
 " To add a ----- or ===== line underneath a heading in markdown.
 nnoremap <space>- yypVr-<Esc>
 nnoremap <space>= yypVr=<Esc>
+
+
+function! FindItem(query)
+    execute 'normal! /'. a:query ."\<cr>"
+    let @/ = a:query
+endfunction
+
+" Todo Item states:
+"   Should be like jira where its a graph of all the states and the states it can transition to
+"   . -> - -> x -> X -> ^ -> ? -> /
+"   Think of better ways to do this.
+
+let states = ['-', 'x', 'X', '^', '?', '/']
+" Create a graph for this and follow that for going to new states.
+nnoremap <space>sp 0t]r:states[0]<CR>d
+
+nnoremap <space>nn 0t]rx
+" Mark the todo item to its NEXT state
+nnoremap <space>ns 0t]rxddmm:call FindItem('## Completed')<CR>jp`m
+
+" Mark the todo item to its PREVIOUS state
+
+" Mark the todo item with the given state
+
+" Add a new todo item below
+nnoremap <space>t o- [.] 
+
+" Move todo item when finished to completed
+nnoremap <space>c dd:call FindItem('## Completed')<CR>jp
+
+
+" Surround checkpoint with ys$* for markdown
+
+"Paste in link to make it into a markdown link immediately
+
+" Open current file in default app
+nnoremap <leader>o :!open %<CR>
+
+" ========= Folds ========= 
+
+" Fold toggle shortcut with tab
+nnoremap <Tab> za
+
+" Saving folds upon closing vim sessions
+" https://til.hashrocket.com/posts/17c44eda91-persistent-folds-between-vim-sessions
+augroup AutoSaveFolds
+  autocmd!
+  " view files are about 500 bytes
+  " bufleave but not bufwinleave captures closing 2nd tab
+  " nested is needed by bufwrite* (if triggered via other autocmd)
+  " https://vi.stackexchange.com/questions/13864/bufwinleave-mkview-with-unnamed-file-error-32
+  autocmd BufWinLeave, BufLeave, BufWritePost ?* nested silent! mkview!
+  autocmd BufWinEnter ?* silent! loadview
+augroup END
+
+set viewoptions=folds,cursor
+set sessionoptions=folds
+" ========================= 
+
+" Vim Latex preview
+au FileType tex nnoremap <space>p :LLPStartPreview<CR>
+
+" LaTex shortcuts
+" Using nmap instead of nnoremap to use inbuilt plugin
+" https://vi.stackexchange.com/questions/15267/mapping-using-tpope-vim-surround-only-works-with-command
+" Obsolete because of inbuilt custom surround mapping
+au FileType tex nmap <leader>e ysiW}i\emph<Esc>
+
 
