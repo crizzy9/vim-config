@@ -21,6 +21,7 @@ set shiftwidth=4
 set expandtab
 
 set nobackup nowritebackup noswapfile " Turn off backup files
+" WILL SWAP FILE ALLOW ME TO OPEN BACKGROUND VIM SESSION in fg if opened the same vim file again (Ctrl-Z fg and vim file)
 set noerrorbells novisualbell         " Turn off visual and audible bells
 
 set history=500
@@ -56,7 +57,7 @@ set wildignore+=*/__pycache__/*
 set spell spelllang=en_us
 
 " Fold options
-set foldmethod=indent
+set foldmethod=manual
 
 " Opening an already open buffer while opening a tag
 set swb+=useopen,usetab " doesnt work
@@ -185,12 +186,21 @@ let g:livepreview_previewer = 'zathura'
 " deoplete settings
 let g:deoplete#enable_at_startup = 1
 
+" Jedi config
+let g:jedi#show_call_signatures = "0"
+
+
 " ========= Vim Surround Configuration ========= 
 
 au FileType tex let g:surround_108 = "\\begin{\1environment: \1}\r\\end{\1\1}"
 au FileType tex let g:surround_{char2nr('e')} = "\\\1effect: \1{\r}"  " surround text by \emph or \textbf where emph is the effect
 
 " ========= NeoSnippet Configuration ========= 
+
+" neosnippet settings
+let g:neosnippet#enable_completed_snippet = 1
+" let g:neosnippet#enable_complete_done = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " Do not show preview window after completion
 
 " Plugin key-mappings.
 " Note: It must be "imap" and "smap".  It uses <Plug> mappings.
@@ -302,13 +312,16 @@ nnoremap <silent> <C-A> :ZoomToggle<CR>
 inoremap <leader>nn <C-O>o
 
 " Normal mode mappings
-" New line mappings
+" Enter to new line while staying in normal mode
+nnoremap ^[OM o<Esc> " Shift Enter. Insert line below
+nnoremap ^[VM O<Esc> " Control Enter. Insert line above
+
 " The mark should stay at the same place but instead its shifting a bit
 " nnoremap <CR> :normal! mmo<Esc>`m           " Insert new line in normal mode
 
 " Add mappings for moving all the content on the right of the curser goes down
 " while staying in insert mode
-" nnoremap <S-CR> O<Esc>
+
 " The mark should stay at the same place.
 nnoremap <space><CR> a<CR><Esc>
 
@@ -333,13 +346,13 @@ let NERDTreeShowHidden=1
 nnoremap <leader>rp "_diwp
 
 " Easy Save and Quit in normal mode
-nnoremap ;w :w<CR>
-nnoremap ;q :q<CR>
-nnoremap ;1 :q!<CR>
-nnoremap ;wq :wq<CR>
-nnoremap ;qa :qa<CR>
-nnoremap ;wa :wa<CR>
-nnoremap ;wqa :wqa<CR>
+" nnoremap ;w :w<CR>
+" nnoremap ;q :q<CR>
+" nnoremap ;1 :q!<CR>
+" nnoremap ;wq :wq<CR>
+" nnoremap ;qa :qa<CR>
+" nnoremap ;wa :wa<CR>
+" nnoremap ;wqa :wqa<CR>
 
 " Easily get out of terminal mode
 tnoremap <Esc> <C-\><C-n>
@@ -421,8 +434,17 @@ nnoremap <space>ns 0t]rxddmm:call FindItem('## Completed')<CR>jp`m
 
 " Mark the todo item with the given state
 
-" Add a new todo item below
+" Add a new todo item below in normal mode
 nnoremap <space>t o- [.] 
+
+" Convert current checkpoint into a todo item (- xxx -> - [.] xxx)
+nnoremap <space>st $T-i [.]<Esc>
+
+
+" <S-CR>(Shift Enter) = ^[OM
+" <C-CR>(Ctrl Enter) = ^[VM
+autocmd FileType markdown inoremap ^[OM <CR>- [.]
+autocmd FileType markdown inoremap ^[VM <Esc>O- [.]
 
 " Move todo item when finished to completed
 nnoremap <space>c dd:call FindItem('## Completed')<CR>jp
@@ -448,7 +470,8 @@ augroup AutoSaveFolds
   " bufleave but not bufwinleave captures closing 2nd tab
   " nested is needed by bufwrite* (if triggered via other autocmd)
   " https://vi.stackexchange.com/questions/13864/bufwinleave-mkview-with-unnamed-file-error-32
-  autocmd BufWinLeave, BufLeave, BufWritePost ?* nested silent! mkview!
+  " DO NOT USE SPACES BETWEEN BufWinLeave and BufLeave
+  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
   autocmd BufWinEnter ?* silent! loadview
 augroup END
 
@@ -465,4 +488,8 @@ au FileType tex nnoremap <space>p :LLPStartPreview<CR>
 " Obsolete because of inbuilt custom surround mapping
 au FileType tex nmap <leader>e ysiW}i\emph<Esc>
 
+" Convert x/y form to \cfrac{x}{y} in latex
 
+" REMOVE ADDITIONAL SPACES IN A LINE
+nnoremap <leader><leader>s :s/\s\+/ /g<CR>
+" SAME CAN BE DONE FOR MULTIPLE LINES DONT KNOW HOW
